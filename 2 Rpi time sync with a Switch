@@ -1,0 +1,47 @@
+import RPi.GPIO as GPIO
+from datetime import datetime, timedelta
+#import ntplib
+import time
+import csv
+from time import ctime
+
+#client = socket.socket( socket.AF_INET, socket.SOCK_DGRAM )
+#ntp = "pool.ntp.org"
+'''
+#ntp_pool = '0.pool.ntp.org', \
+       'uk.pool.ntp.org', \
+       'ie.pool.ntp.org', \
+  
+def get_ntp_time():
+    for item in ntp_pool:
+        call = ntplib.NTPClient()
+        response = call.request(item, version=3)
+        t = datetime.fromtimestamp(response.orig_time)
+        print("Button pressed at time",t.strftime("%a %b %d %H:%M:%S.%f"))
+'''
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+
+while True:
+    input_state = GPIO.input(24)
+    if input_state==False:
+        #c = ntplib.NTPClient()
+        #response = c.request('0.de.pool.ntp.org')
+        #t = datetime.fromtimestamp(response.orig_time)
+        #print("Button pressed at time",t.strftime("%a %b %d %H:%M:%S.%f"))
+        time_z = datetime.now().strftime('%d-%m-%Y %H:%M:%S.%f')[:-3]
+        print("Time ",datetime.now().strftime('%d-%m-%Y %H:%M:%S.%f')[:-3])
+        time.sleep(0.2)
+        
+        '''
+        with open('datasheet.csv','a') as data_log:
+            logger = csv.writer(data_log)
+        
+            logger.writerow([time_z])
+            data_log.close()
+            '''
+        
+        
+        
